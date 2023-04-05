@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Home page</title>
+{% endblock title %}
+
+{% block content %}
+
+    
+    <div class="container my-3 ">
+        <div>
+            {% if request.user.is_authenticated %}
+        <h5 class="text-capitalize">{{request.user.username}}</h5>
+        <a href="{% url 'logout_user' %}" class="btn btn-sm btn-danger">Logout</a>
+        {% else %}
+        <div>
+            <a href="{% url 'signup' %}" class="btn btn-sm btn-primary">Signup</a>
+            <a href="{% url 'login' %}" class="btn btn-sm btn-success">Login</a>
+        </div>
+        {% endif %}
+        </div>
+
+        {% comment %} contents {% endcomment %}
+        {% if request.user.is_authenticated %}
+        <div class="text-center">
+            <div class="my-2">
+                <a href="{% url 'wallet' %}">Wallet</a>
+            </div>
+            <div class="my-2">
+                <a href="{% url 'sendMoney' %}">Send Money</a>
+            </div>
+            <div class="my-2">
+                <a href="{% url 'requestMoney' %}">Request Money</a>
+            </div>
+            <div class="my-2">
+                <a href="{% url 'receivedRequest' %}">Requests Received</a>
+            </div>
+        </div>
+        {% else %}
+        <div>
+            <h3>Please Login to View Home Page</h3>
+        </div>
+        {% endif %}
+
+    </div>
+
+
+
+{% endblock content %}

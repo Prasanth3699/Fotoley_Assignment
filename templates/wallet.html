@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Wallet</title>
+{% endblock title %}
+
+{% block content %}
+
+<div class="container my-3">
+    <h3>Wallet</h3>
+    <div class="text-capitalize">
+        <h5>{{request.user.username}}</h5>
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'logout_user' %}" class="btn btn-sm btn-danger">Logout</a>
+            <a href="/">back</a>
+        </div>
+    </div>
+    <div>
+    <p>Balance: <span class="fw-bolder text-success h3">{{data.balance}}</span></p>
+    </div>
+    <div class="row my-2">
+        <div class="col-12">
+            <div class="card-body table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Cr/Dr</th>
+                            <th>Balance</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in history %}
+                        <tr>
+                            <td>{{data.created_at|timesince}} ago</td>
+                            <td>{{data.transaction_amount}}</td>
+                            <td class="text-capitalize">{{data.transaction_type}}</td>
+                            <td>{{data.balance}}</td>
+                            <td>{{data.message}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
